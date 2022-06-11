@@ -43,10 +43,14 @@ func ParseSourceLine(SourceString string) (Source, error) {
 	}
 	var newWord []string
 	for _, word := range words {
-		fistChar := strings.Index(word, "[")
-		if fistChar != 0 {
-			newWord = append(newWord, word)
+		if strings.Index(word, "#") == 0 {
+			break
 		}
+		if strings.Index(word, "[") == 0 {
+			continue
+		}
+		newWord = append(newWord, word)
+
 	}
 	return Source{
 		Component:     newWord[0],
