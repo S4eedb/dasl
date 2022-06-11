@@ -15,12 +15,23 @@ func TestGetSourcesFromFileNotExist(t *testing.T) {
 }
 
 func TestGetSourcesFromFile(t *testing.T) {
-	out, _ := dasl.GetSourcesFromFile("testdata/test_source_one_line.list")
+	out, err := dasl.GetSourcesFromFile("/home/babaee/workspace/dasl/testdata/test_source_one_line.list")
+
 	want := dasl.Source{
 		Component: "deb",
 	}
-	if want.Component != out[0].Component {
+	if err == nil {
+		if want.Component != out[0].Component {
+			t.Error("not equal sources list")
+		}
+	}
+}
+
+func TestGetSourcesFromEmptyFile(t *testing.T) {
+	_, err := dasl.GetSourcesFromFile("testdata/emptyfile.list")
+	if err != dasl.ErrNoSourcesFound {
 		t.Error("")
+
 	}
 }
 

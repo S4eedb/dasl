@@ -9,6 +9,7 @@ import (
 )
 
 var ErrLineIsEmpty error = errors.New("line is Empty")
+var ErrNoSourcesFound error = errors.New("no sources found")
 
 type Source struct {
 	Component     string
@@ -25,9 +26,15 @@ func NewSources(SourceListString string) ([]Source, error) {
 	scanner.Scan()
 	lines := readBody(scanner)
 	for _, line := range lines {
-		ParsedSource, _ := ParseSourceLine(line)
+		ParsedSource, err := ParseSourceLine(line)
+		if err != nil {
+			continue
+		}
 		sourcesList = append(sourcesList, ParsedSource)
 
+	}
+	if len(sourcesList) == 0 {
+		return nil, ErrNoSourcesFound
 	}
 	return sourcesList, nil
 }
@@ -50,7 +57,9 @@ func ParseSourceLine(SourceString string) (Source, error) {
 			continue
 		}
 		newWord = append(newWord, word)
-
+	}
+	if len(newWord) == 0 {
+		return Source{}, ErrLineIsEmpty
 	}
 	return Source{
 		Component:     newWord[0],
