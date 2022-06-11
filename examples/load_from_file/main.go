@@ -1,10 +1,13 @@
 package main
 
 import (
+	"fmt"
+
 	"github.com/S4eedb/dasl"
 )
 
 func main() {
 
-	dasl.GetSourcesFromFile("testdata/test_source.list")
+	out, _ := dasl.GetSourcesFromFile("/home/babaee/workspace/dasl/testdata/test_source.list")
+	fmt.Print(len(out))
 }

@@ -1,7 +1,6 @@
 package dasl
 
 import (
-	"bufio"
 	"errors"
 	"io"
 	"os"
@@ -22,9 +21,7 @@ var _ io.Reader = (*os.File)(nil)
 
 func NewSources(SourceListString string) ([]Source, error) {
 	var sourcesList []Source
-	scanner := bufio.NewScanner(strings.NewReader(SourceListString))
-	scanner.Scan()
-	lines := readBody(scanner)
+	lines := readBody(SourceListString)
 	for _, line := range lines {
 		ParsedSource, err := ParseSourceLine(line)
 		if err != nil {
@@ -39,8 +36,9 @@ func NewSources(SourceListString string) ([]Source, error) {
 	return sourcesList, nil
 }
 
-func readBody(scanner *bufio.Scanner) []string {
-	return strings.Split(scanner.Text(), "\n")
+func readBody(SourceListString string) []string {
+	lines := strings.Split(SourceListString, "\n")
+	return lines
 }
 
 func ParseSourceLine(SourceString string) (Source, error) {

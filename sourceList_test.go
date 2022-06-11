@@ -15,7 +15,7 @@ func TestGetSourcesFromFileNotExist(t *testing.T) {
 }
 
 func TestGetSourcesFromFile(t *testing.T) {
-	out, err := dasl.GetSourcesFromFile("/home/babaee/workspace/dasl/testdata/test_source_one_line.list")
+	out, err := dasl.GetSourcesFromFile("/home/babaee/workspace/dasl/testdata/test_source.list")
 
 	want := dasl.Source{
 		Component: "deb",
