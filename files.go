@@ -9,22 +9,22 @@ import (
 var AppFs = afero.NewOsFs()
 var ErrFilesnotexist error = errors.New("file not exist")
 
-func GetSourcesFromFile(filePath string) (SourcesList, error) {
+func GetSourcesFromFile(filePath string) ([]Source, error) {
 	fs := afero.NewOsFs()
 	fi, err := fs.Stat(filePath)
 	isExist, _ := afero.Exists(fs, filePath)
 	if !isExist {
-		return SourcesList{}, ErrFilesnotexist
+		return nil, ErrFilesnotexist
 	}
 
 	if err != nil {
-		return SourcesList{}, err
+		return nil, err
 	}
 	fi.Size()
 	buferFile, err := afero.ReadFile(fs, filePath)
 
 	if err != nil {
-		return SourcesList{}, err
+		return nil, err
 	}
 	fileString := string(buferFile)
 	return NewSources(fileString)

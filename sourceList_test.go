@@ -19,7 +19,7 @@ func TestGetSourcesFromFile(t *testing.T) {
 	want := dasl.Source{
 		Component: "deb",
 	}
-	if want.Component != out.Sources[0].Component {
+	if want.Component != out[0].Component {
 		t.Error("")
 	}
 }

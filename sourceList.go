@@ -17,20 +17,16 @@ type Source struct {
 	Distributions []string
 }
 
-type SourcesList struct {
-	Sources []Source
-}
-
 var _ io.Reader = (*os.File)(nil)
 
-func NewSources(SourceListString string) (SourcesList, error) {
-	var sourcesList SourcesList
+func NewSources(SourceListString string) ([]Source, error) {
+	var sourcesList []Source
 	scanner := bufio.NewScanner(strings.NewReader(SourceListString))
 	scanner.Scan()
 	lines := readBody(scanner)
 	for _, line := range lines {
 		ParsedSource, _ := ParseSourceLine(line)
-		sourcesList.Sources = append(sourcesList.Sources, ParsedSource)
+		sourcesList = append(sourcesList, ParsedSource)
 
 	}
 	return sourcesList, nil
