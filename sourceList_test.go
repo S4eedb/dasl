@@ -30,7 +30,7 @@ func TestGetSourcesFromFile(t *testing.T) {
 func TestGetSourcesFromEmptyFile(t *testing.T) {
 	_, err := dasl.GetSourcesFromFile("testdata/emptyfile.list")
 	if err != dasl.ErrNoSourcesFound {
-		t.Error("")
+		t.Errorf("error is not %s", dasl.ErrNoSourcesFound)
 
 	}
 }
