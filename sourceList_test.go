@@ -18,11 +18,20 @@ func TestGetSourcesFromFile(t *testing.T) {
 	out, err := dasl.GetSourcesFromFile("/home/babaee/workspace/dasl/testdata/test_source.list")
 
 	want := dasl.Source{
-		Component: "deb",
+		Component:     "deb",
+		ArchiveType:   "buster",
+		RepositoryURL: "http://deb.debian.org/debian",
+		Distributions: []string{"main", "contrib", "non-free"},
 	}
 	if err == nil {
 		if want.Component != out[0].Component {
 			t.Error("not equal sources list")
+		}
+		if want.ArchiveType != out[0].ArchiveType {
+			t.Error("not equal ArchiveType")
+		}
+		if want.RepositoryURL != out[0].RepositoryURL {
+			t.Error("not equal RepositoryURL")
 		}
 	}
 }

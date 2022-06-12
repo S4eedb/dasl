@@ -61,8 +61,8 @@ func ParseSourceLine(SourceString string) (Source, error) {
 	}
 	return Source{
 		Component:     newWord[0],
-		ArchiveType:   newWord[1],
-		RepositoryURL: newWord[2],
+		RepositoryURL: newWord[1],
+		ArchiveType:   newWord[2],
 		Distributions: newWord[3:],
 	}, nil
 }
